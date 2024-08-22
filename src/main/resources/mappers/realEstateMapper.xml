@@ -40,7 +40,7 @@
  			FROM
  				`real_estate`
  			WHERE
- 				<![CDATA[ `rentPrice` < #{rentPrice} ]]>
+ 				<![CDATA[`rentPrice`<#{rentPrice}]]>
  		
  	</select>
  	
@@ -66,4 +66,34 @@
  				]]>
  	
  	</select>
+ 	
+ 	<insert id="insertRealEstateByObject" parameterType="com.nyeong.spring.test.mybatis.domain.RealEstate">
+	 	INSERT INTO `real_estate`
+	 		(`realtorId`, `address`, `area`, `type`, `price`)
+	 	VALUES
+	 		(#{realtorId}, #{address}, #{area}, #{type}, #{price})
+ 	</insert>
+ 	
+ 	<insert id="insertRealEstate" parameterType="map">
+	 	INSERT INTO `real_estate`
+	 		(`realtorId`, `address`, `area`, `type`, `price`, `rentPrice`)
+		VALUES
+	 		(#{realtorId}, #{address}, #{area}, #{type}, #{price}, #{rentPrice})
+ 	</insert>
+ 	
+ 	<update id="updateRealEstate" parameterType="map">
+ 		UPDATE
+ 			`real_estate`
+ 		SET
+ 			`type`= #{type}, `price` = #{price} , `updatedAt` = now()
+ 		WHERE
+ 			`id` = #{id}
+ 	
+ 	</update>
+ 	
+ 	<delete id="deleteRealEstate" parameterType="int">
+ 		DELETE FROM `real_estate`
+ 		WHERE `id` = #{id}
+ 	
+ 	</delete>
  </mapper>
